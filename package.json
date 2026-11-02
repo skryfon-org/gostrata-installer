@@ -1,0 +1,58 @@
+{
+  "name": "goclean-setup",
+  "productName": "goclean Setup",
+  "version": "1.0.0",
+  "description": "Graphical setup for goclean: installs goclean and the Go compiler",
+  "main": "src/main.cjs",
+  "author": {
+    "name": "ebinskryfon",
+    "email": "skryfon@gmail.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "test:core": "node test/core.test.cjs",
+    "dist": "electron-builder",
+    "dist:linux": "electron-builder --linux",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac"
+  },
+  "build": {
+    "appId": "dev.goclean.setup",
+    "productName": "goclean Setup",
+    "files": [
+      "src/**",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Development",
+      "icon": "build/icon.png",
+      "artifactName": "goclean-setup-linux.${ext}"
+    },
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "icon": "build/icon.png",
+      "artifactName": "goclean-setup-windows.${ext}"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "category": "public.app-category.developer-tools",
+      "icon": "build/icon.png",
+      "artifactName": "goclean-setup-macos.${ext}"
+    }
+  },
+  "devDependencies": {
+    "electron": "^45.2.1",
+    "electron-builder": "^26.18.0"
+  }
+}

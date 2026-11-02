@@ -1,0 +1,19 @@
+*{box-sizing:border-box}
+body{margin:0;height:100vh;display:flex;flex-direction:column;background:#0a1120;color:#e6edf7;font:14px/1.5 Inter,system-ui,sans-serif}
+header{display:flex;gap:14px;align-items:center;padding:16px 24px;border-bottom:1px solid #1d2a44}
+header img{width:44px;height:44px}h1{margin:0;font-size:18px}header p{margin:0;color:#8aa0c4}
+main{flex:1;overflow:auto;padding:20px 24px}h2{margin:0 0 12px;font-size:16px}
+pre{background:#060b16;border:1px solid #1d2a44;border-radius:8px;padding:10px;margin:0 0 12px;font:12px/1.5 'JetBrains Mono',monospace;white-space:pre-wrap;max-height:230px;overflow:auto}
+#log{max-height:150px}
+label{display:block;margin:10px 0 4px}.check{display:flex;gap:8px;align-items:center;margin:8px 0}
+.row{display:flex;gap:8px}input:not([type=checkbox]){flex:1;padding:8px 10px;background:#060b16;border:1px solid #2a3a5c;border-radius:6px;color:inherit}
+button{padding:8px 18px;border:0;border-radius:6px;background:#00add8;color:#04121a;font-weight:600;cursor:pointer}
+button:disabled{opacity:.4;cursor:default}button.ghost{background:#1d2a44;color:#e6edf7}
+footer{display:flex;justify-content:space-between;align-items:center;padding:12px 24px;border-top:1px solid #1d2a44}footer div{display:flex;gap:8px}
+.muted{color:#8aa0c4}[hidden]{display:none!important}
+ul{list-style:none;padding:0;margin:0 0 12px}li{padding:3px 0}li::before{content:'○ ';color:#8aa0c4}
+li.run::before{content:'◔ ';color:#00add8}li.done::before{content:'✓ ';color:#3ecf8e}li.skip::before{content:'– ';color:#8aa0c4}li.fail::before{content:'✗ ';color:#ff6b6b}
+.bar{height:6px;background:#1d2a44;border-radius:3px;margin-bottom:12px;overflow:hidden}#barfill{height:100%;width:0;background:#00add8;transition:width .15s}
+.lead{font-size:15px;margin:8px 0}ol.quick{padding-left:20px;margin:8px 0 12px}ol.quick li{padding:6px 0}ol.quick li::before{content:none}
+.cmd{display:flex;gap:8px;align-items:center;margin-top:6px}.cmd code{flex:1;background:#060b16;border:1px solid #1d2a44;border-radius:6px;padding:7px 10px;font:12px 'JetBrains Mono',monospace}
+button.copy{padding:5px 12px}a{color:#00add8}code{font-family:'JetBrains Mono',monospace}
