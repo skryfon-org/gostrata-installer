@@ -2,7 +2,7 @@ const $ = (id) => document.getElementById(id)
 const STEPS = [
   ['check', 'Checking your system'],
   ['go', 'Go compiler'],
-  ['goclean', 'goclean'],
+  ['gostrata', 'gostrata'],
   ['tools', 'Extra tools (Air)'],
   ['path', 'Updating PATH'],
   ['verify', 'Verifying installation'],
@@ -69,7 +69,7 @@ async function startInstall() {
   if (res.ok) {
     $('barfill').style.width = '100%'
     $('doneTitle').textContent = 'Setup complete'
-    $('doneMsg').textContent = 'goclean was installed successfully.'
+    $('doneMsg').textContent = 'gostrata was installed successfully.'
     $('welcome').hidden = false
     $('doneLog').hidden = true
   } else {
@@ -100,7 +100,7 @@ document.querySelectorAll('.copy').forEach((b) => {
     setTimeout(() => (b.textContent = 'Copy'), 1500)
   }
 })
-$('docs').onclick = (e) => { e.preventDefault(); window.setup.openUrl('https://github.com/ebinskryfon/goclean') }
+$('docs').onclick = (e) => { e.preventDefault(); window.setup.openUrl('https://github.com/skryfon-org/gostrata') }
 
 window.setup.onEvent(onEvent)
 window.setup.init().then((i) => {

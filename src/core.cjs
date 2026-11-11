@@ -7,7 +7,7 @@ const { spawn } = require('node:child_process')
 const { Readable } = require('node:stream')
 const { pipeline } = require('node:stream/promises')
 
-const REPO = 'ebinskryfon/goclean'
+const REPO = 'skryfon-org/gostrata'
 const MIN_GO = [1, 22]
 const IS_WIN = process.platform === 'win32'
 const GOOS = { win32: 'windows', darwin: 'darwin', linux: 'linux' }[process.platform]
@@ -19,7 +19,7 @@ function defaults() {
   const home = os.homedir()
   const local = process.env.LOCALAPPDATA || path.join(home, 'AppData', 'Local')
   return IS_WIN
-    ? { installDir: path.join(local, 'Programs', 'goclean'), goParent: path.join(local, 'Programs') }
+    ? { installDir: path.join(local, 'Programs', 'gostrata'), goParent: path.join(local, 'Programs') }
     : { installDir: path.join(home, '.local', 'bin'), goParent: path.join(home, '.local') }
 }
 
@@ -62,13 +62,13 @@ async function detectGo(extraDirs = []) {
 }
 
 async function getJSON(url) {
-  const res = await fetch(url, { headers: { 'User-Agent': 'goclean-setup', Accept: 'application/json' } })
+  const res = await fetch(url, { headers: { 'User-Agent': 'gostrata-setup', Accept: 'application/json' } })
   if (!res.ok) throw new Error(`GET ${url} failed: HTTP ${res.status}`)
   return res.json()
 }
 
 async function download(url, dest, onPct) {
-  const res = await fetch(url, { headers: { 'User-Agent': 'goclean-setup' }, redirect: 'follow' })
+  const res = await fetch(url, { headers: { 'User-Agent': 'gostrata-setup' }, redirect: 'follow' })
   if (!res.ok || !res.body) throw new Error(`Download failed: HTTP ${res.status} for ${url}`)
   const total = Number(res.headers.get('content-length')) || 0
   const hash = crypto.createHash('sha256')
@@ -99,16 +99,16 @@ async function latestGo() {
   return { version: rel.version, file }
 }
 
-async function latestGoclean() {
+async function latestGostrata() {
   const rel = await getJSON(`https://api.github.com/repos/${REPO}/releases/latest`)
   const num = rel.tag_name.replace(/^v/, '')
-  const name = `goclean_${num}_${GOOS}_${GOARCH}.${IS_WIN ? 'zip' : 'tar.gz'}`
+  const name = `gostrata_${num}_${GOOS}_${GOARCH}.${IS_WIN ? 'zip' : 'tar.gz'}`
   const base = `https://github.com/${REPO}/releases/download/${rel.tag_name}`
   return { tag: rel.tag_name, name, url: `${base}/${name}`, sumsUrl: `${base}/checksums.txt` }
 }
 
-const MARK_START = '# >>> goclean setup >>>'
-const MARK_END = '# <<< goclean setup <<<'
+const MARK_START = '# >>> gostrata setup >>>'
+const MARK_END = '# <<< gostrata setup <<<'
 
 async function addToPath(dirs, log) {
   if (IS_WIN) {
@@ -142,7 +142,7 @@ async function addToPath(dirs, log) {
 async function install(opts, emit) {
   const step = (id, status, label) => emit({ type: 'step', id, status, label })
   const log = (text) => emit({ type: 'log', text })
-  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'goclean-setup-'))
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'gostrata-setup-'))
   const pathDirs = []
   try {
     // 1. System check
@@ -161,7 +161,7 @@ async function install(opts, emit) {
       log(`Found ${existing.version}. Skipping download.`)
       step('go', 'skip', 'Go compiler already installed')
     } else {
-      if (existing) log(`Found ${existing.raw}, but goclean needs Go ${MIN_GO.join('.')} or newer.`)
+      if (existing) log(`Found ${existing.raw}, but gostrata needs Go ${MIN_GO.join('.')} or newer.`)
       else log('Go was not found on this computer.')
       const { version, file } = await latestGo()
       log(`Downloading ${version} (${(file.size / 1e6).toFixed(0)} MB) from go.dev...`)
@@ -182,25 +182,25 @@ async function install(opts, emit) {
     }
     pathDirs.push(...goDirs)
 
-    // 3. goclean
-    step('goclean', 'run')
-    const gc = await latestGoclean()
-    log(`Downloading goclean ${gc.tag} ...`)
+    // 3. gostrata
+    step('gostrata', 'run')
+    const gc = await latestGostrata()
+    log(`Downloading gostrata ${gc.tag} ...`)
     const archive = path.join(tmp, gc.name)
-    const sum = await download(gc.url, archive, (pct) => emit({ type: 'progress', id: 'goclean', pct }))
-    const sums = await (await fetch(gc.sumsUrl, { headers: { 'User-Agent': 'goclean-setup' } })).text()
+    const sum = await download(gc.url, archive, (pct) => emit({ type: 'progress', id: 'gostrata', pct }))
+    const sums = await (await fetch(gc.sumsUrl, { headers: { 'User-Agent': 'gostrata-setup' } })).text()
     const line = sums.split('\n').find((l) => l.trim().endsWith(` ${gc.name}`))
-    if (!line || line.split(/\s+/)[0] !== sum) throw new Error('goclean checksum verification failed. Download was discarded.')
+    if (!line || line.split(/\s+/)[0] !== sum) throw new Error('gostrata checksum verification failed. Download was discarded.')
     log('Checksum verified.')
     const ex = path.join(tmp, 'gc')
     fs.mkdirSync(ex)
     await extract(archive, ex)
-    const dest = path.join(opts.installDir, `goclean${EXE}`)
-    fs.copyFileSync(path.join(ex, `goclean${EXE}`), dest)
+    const dest = path.join(opts.installDir, `gostrata${EXE}`)
+    fs.copyFileSync(path.join(ex, `gostrata${EXE}`), dest)
     if (!IS_WIN) fs.chmodSync(dest, 0o755)
     log(`Installed ${dest}`)
     pathDirs.push(opts.installDir)
-    step('goclean', 'done', `goclean ${gc.tag} installed`)
+    step('gostrata', 'done', `gostrata ${gc.tag} installed`)
 
     // 4. Optional tools (Air hot reload)
     if (opts.installAir) {
@@ -241,4 +241,4 @@ async function install(opts, emit) {
   }
 }
 
-module.exports = { install, detectGo, defaults, latestGo, latestGoclean, goBinDirs, GOOS, GOARCH }
+module.exports = { install, detectGo, defaults, latestGo, latestGostrata, goBinDirs, GOOS, GOARCH }

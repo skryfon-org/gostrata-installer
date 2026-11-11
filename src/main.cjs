@@ -9,7 +9,7 @@ function createWindow() {
     width: 760,
     height: 560,
     resizable: false,
-    title: 'goclean Setup',
+    title: 'gostrata Setup',
     icon: path.join(__dirname, 'logo.png'),
     backgroundColor: '#0a1120',
     autoHideMenuBar: true,

@@ -1,8 +1,8 @@
 {
-  "name": "goclean-setup",
-  "productName": "goclean Setup",
+  "name": "gostrata-setup",
+  "productName": "gostrata Setup",
   "version": "1.0.0",
-  "description": "Graphical setup for goclean: installs goclean and the Go compiler",
+  "description": "Graphical setup for gostrata: installs gostrata and the Go compiler",
   "main": "src/main.cjs",
   "author": {
     "name": "ebinskryfon",
@@ -18,8 +18,8 @@
     "dist:mac": "electron-builder --mac"
   },
   "build": {
-    "appId": "dev.goclean.setup",
-    "productName": "goclean Setup",
+    "appId": "dev.gostrata.setup",
+    "productName": "gostrata Setup",
     "files": [
       "src/**",
       "package.json"
@@ -33,14 +33,14 @@
       ],
       "category": "Development",
       "icon": "build/icon.png",
-      "artifactName": "goclean-setup-linux.${ext}"
+      "artifactName": "gostrata-setup-linux.${ext}"
     },
     "win": {
       "target": [
         "portable"
       ],
       "icon": "build/icon.png",
-      "artifactName": "goclean-setup-windows.${ext}"
+      "artifactName": "gostrata-setup-windows.${ext}"
     },
     "mac": {
       "target": [
@@ -48,7 +48,7 @@
       ],
       "category": "public.app-category.developer-tools",
       "icon": "build/icon.png",
-      "artifactName": "goclean-setup-macos.${ext}"
+      "artifactName": "gostrata-setup-macos.${ext}"
     }
   },
   "devDependencies": {

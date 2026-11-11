@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self'" />
-<title>goclean Setup</title>
+<title>gostrata Setup</title>
 <link rel="stylesheet" href="setup.css" />
 </head>
 <body>
-<header><img src="logo.png" alt="" /><div><h1>goclean Setup</h1><p id="sub">Start clean. Build faster. Ship better.</p></div></header>
+<header><img src="logo.png" alt="" /><div><h1>gostrata Setup</h1><p id="sub">Start clean. Build faster. Ship better.</p></div></header>
 <main>
   <section id="p-license" class="page">
     <h2>License agreement</h2>
@@ -17,7 +17,7 @@
   <section id="p-options" class="page" hidden>
     <h2>Options</h2>
     <p id="sysinfo" class="muted"></p>
-    <label>goclean install folder</label>
+    <label>gostrata install folder</label>
     <div class="row"><input id="installDir" /><button id="browse1" class="ghost">Browse</button></div>
     <label>Go compiler folder</label>
     <div class="row"><input id="goParent" /><button id="browse2" class="ghost">Browse</button></div>
@@ -35,13 +35,13 @@
     <h2 id="doneTitle"></h2>
     <p id="doneMsg"></p>
     <div id="welcome" hidden>
-      <p class="lead">Welcome to goclean! Create your first project in three steps:</p>
+      <p class="lead">Welcome to gostrata! Create your first project in three steps:</p>
       <ol class="quick">
         <li><span>Open a new terminal <em class="muted">(so the updated PATH is loaded)</em></span></li>
-        <li><span>Create a project</span><div class="cmd"><code id="c1">goclean new myapp --database sqlite</code><button class="ghost copy" data-c="c1">Copy</button></div></li>
+        <li><span>Create a project</span><div class="cmd"><code id="c1">gostrata new myapp --database sqlite</code><button class="ghost copy" data-c="c1">Copy</button></div></li>
         <li><span>Run it</span><div class="cmd"><code id="c2">cd myapp &amp;&amp; go run ./cmd/api</code><button class="ghost copy" data-c="c2">Copy</button></div></li>
       </ol>
-      <p class="muted">Uses SQLite so it runs with no setup; omit <code>--database</code> for PostgreSQL. Add features later with <code>goclean make:module user</code>. Docs: <a href="#" id="docs">github.com/ebinskryfon/goclean</a></p>
+      <p class="muted">Uses SQLite so it runs with no setup; omit <code>--database</code> for PostgreSQL. Add features later with <code>gostrata make:module user</code>. Docs: <a href="#" id="docs">github.com/skryfon-org/gostrata</a></p>
     </div>
     <pre id="doneLog"></pre>
   </section>
